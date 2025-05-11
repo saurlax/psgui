@@ -2,6 +2,8 @@
 
 A GUI tool for PicoScenes platform
 
+![](./images/demo.png)
+
 ## Setup
 
 ```bash
