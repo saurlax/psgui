@@ -1,0 +1,15 @@
+[project]
+name = "psgui"
+version = "0.1.0"
+description = "A GUI tool for picoscenes platform"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "csikit",
+    "matplotlib>=3.10.3",
+    "numpy>=2.2.5",
+    "pyqt6>=6.9.0",
+]
+
+[tool.uv.sources]
+csikit = { git = "https://github.com/Gi-z/CSIKit.git", rev = "6ac8cefd4ca2831b7439735965fd7e5822345419" }
