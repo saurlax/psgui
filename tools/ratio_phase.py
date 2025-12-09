@@ -13,7 +13,7 @@ def plot_ratio(csi_matrix):
     no_pairs = len(pairs)
 
     fig, ax = plt.subplots()
-    fig.suptitle("CSI Ratio Amplitude Grid")
+    fig.suptitle("CSI Ratio Phase Grid")
 
     # Grid of ratio blocks: row pair / column pair.
     combined = np.full(
@@ -26,7 +26,7 @@ def plot_ratio(csi_matrix):
         for c_idx, (rx_c, tx_c) in enumerate(pairs):
             second = csi_matrix[:, :, rx_c, tx_c].T
             x0 = c_idx * no_frames
-            combined[y0 : y0 + no_subcarriers, x0 : x0 + no_frames] = np.abs(first / second)
+            combined[y0 : y0 + no_subcarriers, x0 : x0 + no_frames] = np.angle(first / second)
 
             # Label center of the block with row/col pair names.
             ax.text(
@@ -40,7 +40,7 @@ def plot_ratio(csi_matrix):
                 weight="bold",
             )
 
-    im = ax.imshow(combined, aspect="auto")
+    im = ax.imshow(combined, aspect="auto", cmap="twilight", vmin=-np.pi, vmax=np.pi)
 
     # Divider lines between ratio blocks.
     for p in range(1, no_pairs):
@@ -53,7 +53,7 @@ def plot_ratio(csi_matrix):
     ax.xaxis.set_major_formatter(FuncFormatter(lambda v, pos: int(v % no_frames)))
     ax.yaxis.set_major_formatter(FuncFormatter(lambda v, pos: int(v % no_subcarriers)))
 
-    plt.colorbar(im, ax=ax, label="Amplitude")
+    plt.colorbar(im, ax=ax, label="Phase (radians)")
     plt.tight_layout()
     plt.show()
 
