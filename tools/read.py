@@ -6,7 +6,7 @@ from CSIKit.util import csitools
 def read_csi(path):
     reader = PicoScenesBeamformReader()
     csidata = reader.read_file(path, scaled=True)
-    csi_matrix = csitools.get_CSI(csidata)[0]
+    csi_matrix = csitools.get_CSI(csidata, metric="complex")[0]
     shape = csi_matrix.shape
     print(f"CSI with (frames, subcarriers, rx, tx): {shape}")
 
