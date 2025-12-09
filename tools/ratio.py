@@ -7,7 +7,6 @@ from read import read_csi
 
 def plot_ratio(csi_matrix):
     shape = csi_matrix.shape
-    amplitude = np.abs(csi_matrix)
 
     no_frames, no_subcarriers, no_rx, no_tx = shape
     pairs = [(rx, tx) for rx in range(no_rx) for tx in range(no_tx)]
@@ -18,16 +17,17 @@ def plot_ratio(csi_matrix):
     fig.set_label("CSI Ratio")
 
     # Grid of ratio blocks: row pair / column pair.
-    combined = np.full((no_pairs * no_subcarriers, no_pairs * no_frames), np.nan, dtype=float)
+    combined = np.full(
+        (no_pairs * no_subcarriers, no_pairs * no_frames), np.nan, dtype=float
+    )
 
     for r_idx, (rx_r, tx_r) in enumerate(pairs):
-        num = amplitude[:, :, rx_r, tx_r].T  # shape: subcarriers x frames
+        first = csi_matrix[:, :, rx_r, tx_r].T  # shape: subcarriers x frames
         y0 = r_idx * no_subcarriers
         for c_idx, (rx_c, tx_c) in enumerate(pairs):
-            den = amplitude[:, :, rx_c, tx_c].T
+            second = csi_matrix[:, :, rx_c, tx_c].T
             x0 = c_idx * no_frames
-            block = np.divide(num, den, out=np.full_like(num, np.nan), where=den != 0)
-            combined[y0 : y0 + no_subcarriers, x0 : x0 + no_frames] = block
+            combined[y0 : y0 + no_subcarriers, x0 : x0 + no_frames] = first / second
 
             # Label center of the block with row/col pair names.
             ax.text(
