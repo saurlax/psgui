@@ -1,19 +1,22 @@
 import sys
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.ticker import FuncFormatter
 from read import read_csi
 
 
 def plot_complex(csi_matrix):
-    frames = csi_matrix[:, 0, 0, 0] / csi_matrix[:, 0, 0, 1]
+    first = [0, 0]
+    second = [1, 0]
+    frames = (
+        csi_matrix[:, 0, first[0], first[1]] / csi_matrix[:, 0, second[0], second[1]]
+    )
 
     fig = plt.figure(figsize=(10, 4))
     plane = fig.add_subplot(1, 2, 1, projection="polar")
     amp_ax = fig.add_subplot(1, 2, 2)
 
     plane.scatter(np.angle(frames), np.abs(frames))
-    plane.set_title("Complex Plane (R0T0/R0T1)")
+    plane.set_title(f"Complex Plane (R{first[0]}T{first[1]}/R{second[0]}T{second[1]})")
     r_max = np.max(np.abs(frames))
     plane.set_rmax(r_max)
     plane.grid(True, linestyle="--", alpha=0.4)
