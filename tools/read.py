@@ -1,10 +1,10 @@
 import sys
-from CSIKit.reader import PicoScenesBeamformReader
+from CSIKit.reader import get_reader
 from CSIKit.util import csitools
 
 
 def read_csi(path):
-    reader = PicoScenesBeamformReader()
+    reader = get_reader(path)
     csidata = reader.read_file(path, scaled=True)
     csi_matrix = csitools.get_CSI(csidata, metric="complex")[0]
     shape = csi_matrix.shape
