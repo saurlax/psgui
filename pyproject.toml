@@ -5,7 +5,7 @@ description = "A GUI tool for picoscenes platform"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "csikit",
+    "csikit==2.5.1",
     "matplotlib>=3.10.3",
     "numpy>=2.2.5",
     "pyqt6>=6.9.0",
