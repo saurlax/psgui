@@ -47,6 +47,7 @@ def plot_amplitude(csi_matrix):
 
     plt.colorbar(im, ax=ax, label="Amplitude")
     plt.tight_layout()
+    plt.savefig("amplitude.pdf")
     plt.show()
 
 

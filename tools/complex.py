@@ -33,6 +33,7 @@ def plot_complex(csi_matrix):
     amp_ax.grid(True, linestyle="--", alpha=0.4)
 
     plt.tight_layout()
+    plt.savefig("complex.pdf")
     plt.show()
 
 
